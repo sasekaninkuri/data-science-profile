@@ -1,0 +1,99 @@
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border: 2px solid #e9ecef;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-card h3 {
+    color: #2c5f7c;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.project-icon {
+    width: 100%;
+    height: 120px;
+    background: white;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+}
+
+.project-description {
+    color: #555;
+    font-style: italic;
+    font-size: 14px;
+    flex-grow: 1;
+}
+
+.project-link {
+    display: block;
+    margin-top: 15px;
+    color: #2c5f7c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Cyber Section specific styles */
+.cyber-card {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.cyber-header {
+    background: linear-gradient(135deg, #d97336 0%, #c95f2a 100%);
+    text-align: center;
+}
+
+.cyber-content {
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.cyber-visual {
+    flex: 1;
+    text-align: center;
+    font-size: 80px;
+}
+
+.cyber-text {
+    flex: 2;
+}
+
+.cyber-text h3 {
+    color: #2c5f7c;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.cyber-text p {
+    color: #555;
+    font-style: italic;
+}
+
+@media (max-width: 600px) {
+    .cyber-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}

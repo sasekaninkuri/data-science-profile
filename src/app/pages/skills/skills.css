@@ -1,0 +1,39 @@
+.skill-category {
+    margin-bottom: 20px;
+}
+
+.skill-category:last-child {
+    margin-bottom: 0;
+}
+
+.skill-category h4 {
+    color: #2c5f7c;
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    background: #eef2f5;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    border: 1px solid #dee2e6;
+    transition: all 0.2s;
+}
+
+.skill-tag:hover {
+    background: #2c5f7c;
+    color: white;
+    border-color: #2c5f7c;
+}

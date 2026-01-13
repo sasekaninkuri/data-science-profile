@@ -1,0 +1,28 @@
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #2c5f7c;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.contact-link i {
+    font-size: 2.5rem;
+}
+
+.contact-link:hover {
+    background: #f0f4f8;
+    transform: translateY(-5px);
+}
