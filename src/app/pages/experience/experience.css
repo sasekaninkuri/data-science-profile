@@ -44,3 +44,17 @@
     font-weight: bold;
     font-size: 1.2rem;
 }
+
+.courses-list {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+}
+
+@media (max-width: 580px) {
+    .courses-list {
+        grid-template-columns: 1fr;
+    }
+}
