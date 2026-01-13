@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Intern Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c5f7c 0%, #3d7a9e 100%);
+            color: white;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 6px solid white;
+            overflow: hidden;
+            background: #ddd;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            transform: scale(2.5);
+            transform-origin: center 20%;
+        }
+
+        .header-text h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .header-text .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .header-text p {
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background: #2c5f7c;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .skill-item {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .skill-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .projects-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card h3 {
+            color: #2c5f7c;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .project-icon {
+            width: 100%;
+            height: 120px;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .project-description {
+            color: #555;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .cyber-section {
+            grid-column: 1 / -1;
+        }
+
+        .cyber-header {
+            background: linear-gradient(135deg, #d97336 0%, #c95f2a 100%);
+            color: white;
+            padding: 15px 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .cyber-content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .cyber-visual {
+            flex: 1;
+            text-align: center;
+            font-size: 120px;
+        }
+
+        .cyber-text {
+            flex: 1;
+        }
+
+        .cyber-text h3 {
+            color: #2c5f7c;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .cyber-text p {
+            color: #555;
+            font-style: italic;
+        }
+
+        .footer {
+            background: #2c5f7c;
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        .work-item {
+            margin-bottom: 15px;
+        }
+
+        .work-item h3 {
+            color: #2c5f7c;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .work-item p {
+            color: #555;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .work-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .work-item li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .work-item li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #d97336;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cyber-content {
+                flex-direction: column;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        .skill-category {
+            margin-bottom: 20px;
+        }
+
+        .skill-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-category h4 {
+            color: #2c5f7c;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: #eef2f5;
+            color: #333;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            border: 1px solid #dee2e6;
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            background: #2c5f7c;
+            color: white;
+            border-color: #2c5f7c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-pic">
+                <img src="./WhatsApp Image 2026-01-09 at 3.39.53 PM.jpeg" alt="Profile Picture">
+            </div>
+            <div class="header-text">
+                <h1>Junior Data Scientist</h1>
+                <p class="subtitle">Data Science & Cybersecurity Enthusiast</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <div class="card">
+                    <div class="card-header">About Me</div>
+                    <div class="card-content">
+                        <p style="margin-bottom: 15px;">Junior Data Scientist with hands-on experience in data analysis,
+                            visualization, and basic machine learning + Statistics.</p>
+                        <p style="margin-bottom: 15px;">Skilled in Python,R, SAS, SQL, Power BI, and Excel, and a Full
+                            Stack
+                            Developer experienced in building and integrating front-end and back-end solutions.</p>
+                        <p>Holds a CCST Cybersecurity certification, strengthening a secure approach to data handling.
+                            Passionate about turning data into actionable insights.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Key Skills</div>
+                    <div class="card-content">
+                        <div class="skill-category">
+                            <h4>Programming Languages</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">HTML</span>
+                                <span class="skill-tag">CSS</span>
+                                <span class="skill-tag">SAS</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Data Science & Analytics</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Pandas</span>
+                                <span class="skill-tag">NumPy</span>
+                                <span class="skill-tag">Matplotlib</span>
+                                <span class="skill-tag">Data Cleaning</span>
+                                <span class="skill-tag">Data Analysis</span>
+                                <span class="skill-tag">Data Visualization</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Statistics</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Descriptive Statistics</span>
+                                <span class="skill-tag">Correlation Analysis</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Machine Learning</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Regression</span>
+                                <span class="skill-tag">Classification</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Databases</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">SQL</span>
+                                <span class="skill-tag">MongoDB</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Frameworks & Tools</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Bootstrap</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">Flask</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Business Intelligence</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Power BI</span>
+                                <span class="skill-tag">Excel</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>API Development</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">RESTful APIs</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Dev Tools</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">GitHub</span>
+                                <span class="skill-tag">VS Code</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Cybersecurity</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Web Security Fundamentals</span>
+                                <span class="skill-tag">Secure Data Handling</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Office Software</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">MS Office 365</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="projects-section">
+                <div class="card">
+                    <div class="card-header">Work Experience</div>
+                    <div class="card-content">
+                        <div class="work-item">
+                            <h3>Junior data Scientist</h3>
+                            <p><strong>Shaper</strong> | October 2025 - Present</p>
+                            <ul>
+                                <li>Analyze data to find patterns and insights</li>
+                                <li>Clean, organize, and prepare data for analysis</li>
+                                <li>Create reports and dashboards using Excel and Power BI</li>
+                                <li>Use Python and SQL to work with data</li>
+                                <li>Support basic machine learning and predictive analysis</li>
+                            </ul>
+                        </div>
+
+                        <div class="work-item">
+                            <h3>Junior Cybersecurity Analyst</h3>
+                            <p><strong>Shaper</strong> | Oct 2024 – September 2025</p>
+                            <ul>
+                                <li>Identifying and analyzing potential security risks in web applications.</li>
+                                <li>Assisting in threat detection and vulnerability management.</li>
+                                <li>Conducting incident response and analyzing security breaches.</li>
+                                <li>Collaborating with teams to enhance internal and external system security.</li>
+                            </ul>
+                        </div>
+
+                        <div class="work-item">
+                            <h3>Junior Full-Stack Developer (Learnership)</h3>
+                            <p><strong>Shaper</strong> | Sep 2023 – Sep 2024</p>
+                            <ul>
+                                <li>Developed responsive, secure web applications using JavaScript, Python, HTML, and
+                                    CSS.</li>
+                                <li>Built and maintained RESTful APIs for seamless data interaction.</li>
+                                <li>Managed databases with MongoDB, ensuring data integrity.</li>
+                                <li>Utilized GitHub for version control and CI/CD pipelines for workflow optimization.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Featured Projects</div>
+                    <div class="card-content">
+                        <div class="projects-grid">
+                            <div class="project-card">
+                                <h3>System Performance Analysis</h3>
+                                <div class="project-icon">📈</div>
+                                <p class="project-description">Data Cleaning & Visualization</p>
+                                <a href="https://docs.google.com/presentation/d/1TjlIxMiV15uCjZdhECrTmz7psFYPWZgOXtD__423nN8/edit?slide=id.p#slide=id.p"
+                                    target="_blank"
+                                    style="display:block; margin-top:10px; color:#2c5f7c; text-decoration:none; font-weight:bold;">View
+                                    Project <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <div class="project-card">
+                                <h3>SQL Business Insights</h3>
+                                <div class="project-icon">💾</div>
+                                <p class="project-description">SQL Queries & Reporting</p>
+                                <a href="https://github.com/sasekaninkuri/superstore" target="_blank"
+                                    style="display:block; margin-top:10px; color:#2c5f7c; text-decoration:none; font-weight:bold;">View
+                                    Project <i class="fab fa-github"></i></a>
+                            </div>
+
+                            <div class="project-card">
+                                <h3>IT Operations Dashboard</h3>
+                                <div class="project-icon">📊</div>
+                                <p class="project-description">Power BI Dashboard</p>
+                            </div>
+
+                            <div class="project-card">
+                                <h3>Predicting Downtime</h3>
+                                <div class="project-icon">🤖</div>
+                                <p class="project-description">Machine Learning Model</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card cyber-section">
+                    <div class="cyber-header">Cybersecurity & Anomaly Detection</div>
+                    <div class="cyber-content">
+                        <div class="cyber-visual">🔒</div>
+                        <div class="cyber-text">
+                            <h3>Anomaly Detection in Network Logs</h3>
+                            <p>Identifying Suspicious Activities</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="https://github.com/sasekaninkuri" target="_blank" class="footer-link">
+                <i class="fab fa-github" style="font-size: 24px;"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/sasekani-maluleke-026736165/" target="_blank" class="footer-link">
+                <i class="fab fa-linkedin" style="font-size: 24px;"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="mailto:Sasekaninkuri560@gmail.com" class="footer-link">
+                <i class="fas fa-envelope" style="font-size: 24px;"></i>
+                <span>Email</span>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
