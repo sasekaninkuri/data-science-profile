@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, make_response
 from .analyzer import analyze_url
 from .models import db, ScanHistory
 
@@ -27,6 +27,21 @@ def index():
             except Exception as e:
                 result = {"error": str(e)}
     return render_template("index.html", result=result, history=history)
+
+@main_bp.route("/export")
+def export_history():
+    history = ScanHistory.query.order_by(ScanHistory.scan_date.desc()).all()
+    import csv, io
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["URL", "Verdict", "Score", "Scan Date"])
+    for item in history:
+        writer.writerow([item.url, item.verdict, item.score, item.scan_date])
+    
+    response = make_response(output.getvalue())
+    response.headers["Content-Disposition"] = "attachment; filename=scan_history.csv"
+    response.headers["Content-type"] = "text/csv"
+    return response
 
 @main_bp.route("/clear-history")
 def clear_history():

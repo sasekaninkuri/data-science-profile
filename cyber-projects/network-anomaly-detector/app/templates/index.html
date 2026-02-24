@@ -99,15 +99,23 @@
             margin-bottom: 20px;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
             <h1>📡 Network Anomaly Detector</h1>
-            {% if filename %}
-            <div>Analyzing: <code>{{ filename }}</code></div>
-            {% endif %}
+            <div style="display: flex; gap: 10px; align-items: center;">
+                {% if results %}
+                <button onclick="exportTableToCSV('anomalies.csv')" class="btn"
+                    style="background: transparent; border: 1px solid var(--accent); color: var(--accent);">Export
+                    Analysis</button>
+                {% endif %}
+                {% if filename %}
+                <div>Analyzing: <code>{{ filename }}</code></div>
+                {% endif %}
+            </div>
         </div>
 
         {% if error %}
@@ -139,9 +147,16 @@
                 <div style="font-size: 2rem; font-weight: bold; color: var(--danger);">{{ anomaly_count }}</div>
             </div>
             <div class="stat-card">
-                <div style="font-size: 0.8rem; color: #94a3b8;">ANOMALY RATE</div>
-                <div style="font-size: 2rem; font-weight: bold;">{{ (anomaly_count / total * 100)|round(2) }}%</div>
+                <div style="font-size: 0.8rem; color: #94a3b8;">RISK LEVEL</div>
+                <div
+                    style="font-size: 2rem; font-weight: bold; color: {{ 'var(--danger)' if (anomaly_count/total) > 0.1 else 'var(--accent)' }}">
+                    {{ 'CRITICAL' if (anomaly_count/total) > 0.1 else 'STABLE' }}
+                </div>
             </div>
+        </div>
+
+        <div class="stat-card" style="margin-top: 30px; height: 300px;">
+            <canvas id="trafficChart"></canvas>
         </div>
 
         <div class="table-container">

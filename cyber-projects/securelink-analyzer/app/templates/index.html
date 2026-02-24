@@ -25,7 +25,15 @@
         </div>
 
         {% if result %}
+        {% if result.error %}
+        <div class="result-section analyzer-card" style="border-color: var(--danger-color);">
+            <h2 style="color: var(--danger-color);">⚠️ Analysis Error</h2>
+            <p>{{ result.error }}</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Please check the URL format and try again.</p>
+        </div>
+        {% else %}
         <div class="result-section analyzer-card">
+            <!-- ... existing result content ... -->
             <div class="verdict-header"
                 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <div>
@@ -101,12 +109,17 @@
             </div>
         </div>
         {% endif %}
+        {% endif %}
 
         {% if history %}
         <div class="history-section">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h2 style="font-size: 1.25rem;">Recent Scan History</h2>
-                <a href="/clear-history" class="clear-history">Clear History</a>
+                <div>
+                    <a href="/export" class="clear-history"
+                        style="margin-right: 15px; color: var(--accent-color);">Export History (CSV)</a>
+                    <a href="/clear-history" class="clear-history">Clear History</a>
+                </div>
             </div>
             <table class="history-table">
                 <thead>
