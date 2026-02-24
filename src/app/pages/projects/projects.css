@@ -50,6 +50,23 @@
     flex-grow: 1;
 }
 
+.project-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.project-features span {
+    background: #e9ecef;
+    color: #495057;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1px solid #dee2e6;
+}
+
 .project-link {
     display: block;
     margin-top: 15px;
