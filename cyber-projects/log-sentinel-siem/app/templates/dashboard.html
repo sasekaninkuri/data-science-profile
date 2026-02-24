@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Sentinel | SIEM Monitoring</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="dashboard-wrapper">
+    <aside>
+      <div class="logo">
+        🛡️ SENTINEL
+      </div>
+      <nav>
+        <a href="#" class="nav-link active">Dashboard</a>
+        <a href="/compliance" class="nav-link">Compliance API</a>
+        <div style="margin-top: 40px;">
+          <span class="stat-label">Export Data</span>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+            <a href="/export/csv" class="btn-export">Download CSV</a>
+            <a href="/export/json" class="btn-export">Download JSON</a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <header style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 30px;">
+        <h1>Security Operations Center</h1>
+        <div class="risk-tag risk-{{ risk_level|lower }}">
+          SYSTEM RISK: {{ risk_level }} ({{ risk_score }}%)
+        </div>
+      </header>
+
+      <div class="stats-container">
+        <div class="stat-card stat-total">
+          <span class="stat-value">{{ total_count }}</span>
+          <span class="stat-label">Total Events</span>
+        </div>
+        <div class="stat-card stat-suspicious">
+          <span class="stat-value">{{ suspicious_count }}</span>
+          <span class="stat-label">Suspicious Hits</span>
+        </div>
+        <div class="stat-card stat-risk">
+          <span class="stat-value">{{ risk_score }}%</span>
+          <span class="stat-label">Threat Percentage</span>
+        </div>
+        <div class="stat-card stat-low">
+          <span class="stat-value">ONLINE</span>
+          <span class="stat-label">System Status</span>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="logChart"></canvas>
+      </div>
+
+      <div class="data-table-container">
+        <div
+          style="padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+          <h2 style="margin: 0; font-size: 1.1rem;">Live Log Stream</h2>
+          <span style="color: var(--text-dim); font-size: 0.8rem;">Showing all records from database</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>TIMESTAMP</th>
+              <th>SEC-LEVEL</th>
+              <th>EVENT MESSAGE</th>
+              <th>ANALYSIS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if events %}
+            {% for event in events %}
+            <tr class="{{ 'suspicious-row' if event.is_suspicious else '' }}">
+              <td>{{ event.timestamp }}</td>
+              <td>
+                <span
+                  class="badge {{ 'badge-danger' if event.level in ['ERROR', 'CRITICAL', 'WARNING'] else 'badge-info' }}">
+                  {{ event.level }}
+                </span>
+              </td>
+              <td>{{ event.message }}</td>
+              <td>
+                {{ '⚠️ ANOMALY DETECTED' if event.is_suspicious else '✔️ VERIFIED' }}
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="4" style="text-align: center; padding: 40px; color: var(--text-dim);">No logs available in
+                database</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('logChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: {{ hour_labels| safe }},
+      datasets: [{
+        label: 'Log Frequency (Events per Hour)',
+        data: {{ hour_data| safe }},
+      borderColor: '#00f2ff',
+      backgroundColor: 'rgba(0, 242, 255, 0.1)',
+      borderWidth: 2,
+      fill: true,
+      tension: 0.4
+                }]
+            },
+      options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: '#161b22' },
+          ticks: { color: '#848d97' }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: '#848d97' }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: '#e6edf3', font: { family: 'JetBrains Mono' } }
+        }
+      }
+    }
+        });
+  </script>
+</body>
+
+</html>

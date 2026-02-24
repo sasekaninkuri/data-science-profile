@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureLink Analyzer | Cybersecurity Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔍 SecureLink Analyzer</h1>
+
+        <div class="analyzer-card">
+            <form method="post" class="search-container">
+                <input type="text" name="url" placeholder="Paste URL to scan (e.g., https://example.com)" required>
+                <button type="submit">Scan URL</button>
+            </form>
+
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                Advanced heuristic analysis for phishing, SSL validity, domain reputation, and suspicious redirects.
+            </p>
+        </div>
+
+        {% if result %}
+        <div class="result-section analyzer-card">
+            <div class="verdict-header"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <span class="stat-label">Analyzing</span>
+                    <h2 style="margin: 0; color: white; word-break: break-all;">{{ result.url }}</h2>
+                </div>
+                <div class="verdict-badge verdict-{{ result.verdict|lower }}">
+                    {{ result.verdict }}
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Security Score</span>
+                    <span class="stat-value"
+                        style="color: {{ 'var(--success-color)' if result.score < 3 else ('var(--warning-color)' if result.score < 6 else 'var(--danger-color)') }}">
+                        {{ result.score }} / 11 Risk Points
+                    </span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">HTTPS</span>
+                    <span class="stat-value"
+                        style="color: {{ 'var(--success-color)' if result.uses_https else 'var(--danger-color)' }}">
+                        {{ 'Secure (HTTPS)' if result.uses_https else 'Insecure (HTTP)' }}
+                    </span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Domain Age</span>
+                    <span class="stat-value">{{ result.domain_age_days }} days</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Registrar</span>
+                    <span class="stat-value">{{ result.registrar }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Location</span>
+                    <span class="stat-value">🌍 {{ result.geo_location }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">SSL Expiry</span>
+                    <span class="stat-value">{{ result.ssl_expiry }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Redirects</span>
+                    <span class="stat-value">{{ result.redirects }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Suspicious TLD</span>
+                    <span class="stat-value"
+                        style="color: {{ 'var(--danger-color)' if result.suspicious_tld else 'inherit' }}">
+                        {{ 'Yes' if result.suspicious_tld else 'No' }}
+                    </span>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #30363d;">
+                <h3 style="font-size: 1rem; margin-bottom: 10px;">Deeper Insights</h3>
+                <ul
+                    style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;">
+                    <li><span
+                            style="color: {{ 'var(--danger-color)' if result.shortened else 'var(--success-color)' }}">●</span>
+                        Shortened URL: {{ 'Yes' if result.shortened else 'No' }}</li>
+                    <li><span
+                            style="color: {{ 'var(--danger-color)' if result.phishing_keywords else 'var(--success-color)' }}">●</span>
+                        Phishing Keywords: {{ 'Detected' if result.phishing_keywords else 'None' }}</li>
+                    <li><span
+                            style="color: {{ 'var(--danger-color)' if result.obfuscated else 'var(--success-color)' }}">●</span>
+                        Obfuscation: {{ 'Yes' if result.obfuscated else 'No' }}</li>
+                    <li><span
+                            style="color: {{ 'var(--danger-color)' if result.suspicious_subdomain else 'var(--success-color)' }}">●</span>
+                        Suspicious Subdomain: {{ 'Yes' if result.suspicious_subdomain else 'No' }}</li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if history %}
+        <div class="history-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-size: 1.25rem;">Recent Scan History</h2>
+                <a href="/clear-history" class="clear-history">Clear History</a>
+            </div>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>URL</th>
+                        <th>Verdict</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for scan in history %}
+                    <tr>
+                        <td style="max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{
+                            scan.url }}</td>
+                        <td>
+                            <span class="verdict-badge verdict-{{ scan.verdict|lower }}"
+                                style="padding: 2px 8px; font-size: 0.7rem;">
+                                {{ scan.verdict }}
+                            </span>
+                        </td>
+                        <td>{{ scan.score }}</td>
+                        <td style="color: var(--text-muted); font-size: 0.8rem;">{{ scan.scan_date.strftime('%b %d,
+                            %H:%M') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
