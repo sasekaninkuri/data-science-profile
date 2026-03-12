@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Anomaly Detector | Sentinel AI</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #020617;
+            --card: #0f172a;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.2);
+            --danger: #f43f5e;
+            --danger-glow: rgba(244, 63, 94, 0.2);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #1e293b;
+            --glass: rgba(15, 23, 42, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(244, 63, 94, 0.05) 0%, transparent 50%);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .logo span {
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .upload-section {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: var(--accent);
+        }
+
+        .upload-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .file-input-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .stat-card.danger {
+            border-left: 4px solid var(--danger);
+        }
+
+        .stat-card .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .chart-container {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            height: 450px;
+        }
+
+        .table-container {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            text-align: left;
+            padding: 1.25rem 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr.anomaly-row {
+            background: rgba(244, 63, 94, 0.05);
+        }
+
+        tr.anomaly-row td {
+            color: var(--danger);
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-anomaly {
+            background: var(--danger);
+            color: white;
+        }
+
+        .status-normal {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .error-toast {
+            background: var(--danger-glow);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span>📡</span> SENTINEL AI ANOMALY DETECTOR
+            </div>
+            <div class="header-actions">
+                <a href="/sample-data" class="btn btn-outline" title="Download sample data for testing">
+                    📥 Download Sample
+                </a>
+            </div>
+        </header>
+
+        {% if error %}
+        <div class="error-toast">
+            <strong>ERROR:</strong> {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="upload-section">
+            <h3>Traffic Analysis Hub</h3>
+            <p>Upload your network traffic logs (CSV) for deep anomaly inspection using Isolation Forest AI.</p>
+
+            <form method="post" enctype="multipart/form-data" class="file-input-wrapper">
+                <div
+                    style="background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 16px; width: 100%; max-width: 500px; border: 1px dashed var(--border);">
+                    <input type="file" name="file" accept=".csv" required style="width: 100%;">
+                </div>
+                <button type="submit" class="btn">
+                    ⚡ Start Anomaly Scan
+                </button>
+            </form>
+            <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-secondary);">
+                Supports any CSV with numerical features. Visualizing <code>packet_length</code> if present.
+            </div>
+        </div>
+
+        {% if results %}
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="label">Total Packets Scanned</div>
+                <div class="value">{{ total }}</div>
+            </div>
+            <div class="stat-card {{ 'danger' if anomaly_count > 0 else '' }}">
+                <div class="label">Anomalies Detected</div>
+                <div class="value" style="color: {{ 'var(--danger)' if anomaly_count > 0 else 'var(--accent)' }}">
+                    {{ anomaly_count }}
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Anomaly Rate</div>
+                <div class="value">{{ "%.2f"|format(anomaly_count / total * 100) }}%</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">System Threat Level</div>
+                <div class="value" style="color: {{ 'var(--danger)' if (anomaly_count/total) > 0.1 else '#10b981' }}">
+                    {{ 'CRITICAL' if (anomaly_count/total) > 0.1 else 'SECURE' }}
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="anomalyChart"></canvas>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STATUS</th>
+                        {% for key in results[0].keys() if key not in ['is_anomaly', 'anomaly_score'] %}
+                        <th>{{ key|upper }}</th>
+                        {% endfor %}
+                        <th>SCORE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in results %}
+                    <tr class="{{ 'anomaly-row' if row.is_anomaly else '' }}">
+                        <td>
+                            {% if row.is_anomaly %}
+                            <span class="status-badge status-anomaly">ANOMALY</span>
+                            {% else %}
+                            <span class="status-badge status-normal">NORMAL</span>
+                            {% endif %}
+                        </td>
+                        {% for key, val in row.items() if key not in ['is_anomaly', 'anomaly_score'] %}
+                        <td>{{ val }}</td>
+                        {% endfor %}
+                        <td style="font-family: 'JetBrains Mono';">{{ row.anomaly_score }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            const ctx = document.getElementById('anomalyChart').getContext('2d');
+            const data = {{ results| tojson }};
+
+            // Try to find packet_length or use index
+            const labels = data.map((_, i) => i);
+            const values = data.map(d => d.packet_length || d[Object.keys(d)[0]] || 0);
+            const pointColors = data.map(d => d.is_anomaly ? '#f43f5e' : '#38bdf8');
+            const pointRadius = data.map(d => d.is_anomaly ? 6 : 3);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Packet Metric',
+                        data: values,
+                        borderColor: 'rgba(56, 189, 248, 0.4)',
+                        backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: pointColors,
+                        pointBorderColor: pointColors,
+                        pointRadius: pointRadius,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            titleColor: '#f8fafc',
+                            bodyColor: '#94a3b8',
+                            borderColor: '#1e293b',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#64748b' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+        </script>
+        {% endif %}
+    </div>
+</body>
+
+</html>

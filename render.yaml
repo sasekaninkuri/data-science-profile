@@ -1,0 +1,35 @@
+services:
+  # 1. Log-Sentinel (SIEM)
+  - type: web
+    name: log-sentinel-siem
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app
+    rootDir: cyber-projects/log-sentinel-siem
+    envVars:
+      - key: MONGO_URI
+        sync: false # User needs to provide this in Render dashboard
+      - key: SECRET_KEY
+        generateValue: true
+
+  # 2. SecureLink Analyzer
+  - type: web
+    name: securelink-analyzer
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app
+    rootDir: cyber-projects/securelink-analyzer
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+
+  # 3. Network Anomaly Detector
+  - type: web
+    name: network-anomaly-detector
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    rootDir: cyber-projects/network-anomaly-detector
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true

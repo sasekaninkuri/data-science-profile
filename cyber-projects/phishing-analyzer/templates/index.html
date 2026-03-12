@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard AI | Forensic Email Analyzer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --card: #111827;
+            --accent: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.2);
+            --danger: #ef4444;
+            --success: #10b981;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border: #1f2937;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at top right, rgba(245, 158, 11, 0.05), transparent);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .input-section,
+        .results-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            background: #030712;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #d1d5db;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            resize: none;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .risk-CRITICAL {
+            background: var(--danger);
+            color: white;
+        }
+
+        .risk-MEDIUM {
+            background: var(--accent);
+            color: black;
+        }
+
+        .risk-LOW {
+            background: var(--success);
+            color: white;
+        }
+
+        .stat-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            font-size: 1rem;
+            margin-top: 4px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+        }
+
+        .reason-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .reason-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .reason-item::before {
+            content: "⚠️";
+            font-size: 0.8rem;
+        }
+
+        .url-list {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            word-break: break-all;
+        }
+
+        .url-item {
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .placeholder-text {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🛡️ PHISHGUARD AI</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">FORENSIC EMAIL ANALYZER v2.0</div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="input-section">
+                <h3 style="margin-bottom: 1rem;">Analyze Mail Headers/Source</h3>
+                <form method="POST">
+                    <textarea name="raw_email"
+                        placeholder="Paste full email source code here (headers + body)..."></textarea>
+                    <button type="submit" class="btn">⚡ RUN FORENSIC SCAN</button>
+                </form>
+            </div>
+
+            <div class="results-section">
+                {% if analysis %}
+                <div class="risk-badge risk-{{ analysis.risk_level }}">{{ analysis.risk_level }} RISK</div>
+                <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem;">{{ analysis.risk_score }}<span
+                        style="font-size: 1rem; color: var(--text-secondary);">/100</span></div>
+
+                <div class="stat-group">
+                    <div class="stat-label">Subject</div>
+                    <div class="stat-value">{{ analysis.subject }}</div>
+                </div>
+                <div class="stat-group">
+                    <div class="stat-label">From</div>
+                    <div class="stat-value">{{ analysis.from }}</div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <div class="stat-label">Analysis Findings</div>
+                    <ul class="reason-list">
+                        {% for reason in analysis.reasons %}
+                        <li class="reason-item">{{ reason }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <div class="stat-label">Extracted Links ({{ analysis.urls|length }})</div>
+                    <div class="url-list">
+                        {% for url in analysis.urls %}
+                        <div class="url-item">{{ url }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% else %}
+                <div class="placeholder-text">
+                    <div style="font-size: 3rem;">🕵️</div>
+                    <p>Analysis results will appear here after scanning.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

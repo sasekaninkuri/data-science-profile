@@ -1,4 +1,5 @@
+flask
+gunicorn
+python-magic
 beautifulsoup4
-requests
-pandas
-pyzmail36  # Optional, if neededs
+re

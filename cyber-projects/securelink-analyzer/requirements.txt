@@ -2,3 +2,4 @@ flask
 python-whois
 validators
 requests
+gunicorn

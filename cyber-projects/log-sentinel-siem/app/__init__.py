@@ -25,8 +25,8 @@ def create_app():
     app.config.from_pyfile('config.py', silent=True)
 
     # Set default SECRET_KEY and MONGO_URI if not already set
-    app.config.setdefault('SECRET_KEY', 'super-secure-secret-key')
-    app.config.setdefault('MONGO_URI', 'mongodb://localhost:27017/log_sentinel')
+    app.config.setdefault('SECRET_KEY', os.environ.get('SECRET_KEY', 'super-secure-secret-key'))
+    app.config.setdefault('MONGO_URI', os.environ.get('MONGO_URI', 'mongodb://localhost:27017/log_sentinel'))
 
     # Initialize PyMongo with the app
     mongo.init_app(app)
