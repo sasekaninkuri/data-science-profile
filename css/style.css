@@ -679,10 +679,13 @@ footer {
 }
 .scroll-reveal.visible { opacity: 1; transform: none; }
 
+.mobile-photo-container { display: none; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .hero { grid-template-columns: 1fr; padding: 100px 40px 60px; }
-  .hero-right { display: flex; justify-content: center; margin-top: 50px; }
+  .hero-right { display: none; }
+  .mobile-photo-container { display: flex; justify-content: flex-start; margin: 30px 0; }
   .photo-frame { width: 320px; height: 400px; }
   .hero-counters { flex-wrap: wrap; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 50px; }
