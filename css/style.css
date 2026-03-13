@@ -682,7 +682,8 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .hero { grid-template-columns: 1fr; padding: 100px 40px 60px; }
-  .hero-right { display: none; }
+  .hero-right { display: flex; justify-content: center; margin-top: 50px; }
+  .photo-frame { width: 320px; height: 400px; }
   .hero-counters { flex-wrap: wrap; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 50px; }
   .skills-grid { grid-template-columns: repeat(2,1fr); }
@@ -699,6 +700,7 @@ footer {
   .nav-hamburger { display: flex; }
   .nav-cta { display: none; }
   .hero { padding: 90px 24px 60px; }
+  .photo-frame { width: 280px; height: 350px; }
   .section { padding: 80px 24px; }
   footer { padding: 24px; }
   .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
