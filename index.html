@@ -1,582 +1,579 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Science Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #bfcee8 100%);
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            background: linear-gradient(135deg, #2c5f7c 0%, #3d7a9e 100%);
-            color: white;
-            padding: 40px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .profile-pic {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 6px solid white;
-            overflow: hidden;
-            background: #ddd;
-        }
-
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 20%;
-            transform: scale(2.5);
-            transform-origin: center 20%;
-        }
-
-        .header-text h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .header-text .subtitle {
-            font-size: 20px;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .header-text p {
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            background: #2c5f7c;
-            color: white;
-            padding: 15px 20px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .card-content {
-            padding: 20px;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .skill-item {
-            text-align: center;
-            padding: 15px;
-        }
-
-        .skill-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .projects-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .project-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            border: 2px solid #e9ecef;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .project-card h3 {
-            color: #2c5f7c;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .project-icon {
-            width: 100%;
-            height: 120px;
-            background: white;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-        }
-
-        .project-description {
-            color: #555;
-            font-style: italic;
-            font-size: 14px;
-        }
-
-        .cyber-section {
-            grid-column: 1 / -1;
-        }
-
-        .cyber-header {
-            background: linear-gradient(135deg, #d97336 0%, #c95f2a 100%);
-            color: white;
-            padding: 15px 20px;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .cyber-content {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 0 0 8px 8px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .cyber-visual {
-            flex: 1;
-            text-align: center;
-            font-size: 120px;
-        }
-
-        .cyber-text {
-            flex: 1;
-        }
-
-        .cyber-text h3 {
-            color: #2c5f7c;
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-
-        .cyber-text p {
-            color: #555;
-            font-style: italic;
-        }
-
-        .footer {
-            background: #2c5f7c;
-            color: white;
-            padding: 25px;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .footer-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .footer-link:hover {
-            opacity: 0.8;
-        }
-
-        .work-item {
-            margin-bottom: 15px;
-        }
-
-        .work-item h3 {
-            color: #2c5f7c;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .work-item p {
-            color: #555;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-
-        .work-item ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .work-item li {
-            padding: 5px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .work-item li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #d97336;
-            font-weight: bold;
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .cyber-content {
-                flex-direction: column;
-            }
-
-            .footer {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        .skill-category {
-            margin-bottom: 20px;
-        }
-
-        .skill-category:last-child {
-            margin-bottom: 0;
-        }
-
-        .skill-category h4 {
-            color: #2c5f7c;
-            margin-bottom: 8px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .skill-tag {
-            background: #eef2f5;
-            color: #333;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 13px;
-            border: 1px solid #dee2e6;
-            transition: all 0.2s;
-        }
-
-        .skill-tag:hover {
-            background: #2c5f7c;
-            color: white;
-            border-color: #2c5f7c;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sasekani Maluleke — Data Scientist</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
 </head>
-
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="profile-pic">
-                <img src="./profile.jpeg" alt="Profile Picture">
-            </div>
-            <div class="header-text">
-                <h1>Junior Data Scientist</h1>
-                <p class="subtitle">Data Science & Cybersecurity Enthusiast</p>
-            </div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Background -->
+  <div class="grid-bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <div class="nav-logo">SM<span>.</span></div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="assets/Sasekani_CV.pdf" class="nav-cta" download>Download CV</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="home">
+    <div class="hero-left">
+      <div class="hero-tag reveal">
+        <span class="tag-dot"></span>
+        Available for opportunities
+      </div>
+
+      <h1 class="hero-name reveal">
+        <span class="name-line">Sasekani</span>
+        <span class="name-line outline">Maluleke</span>
+      </h1>
+
+      <p class="hero-title reveal">
+        <span class="highlight">Data Scientist</span>
+        <span class="sep">·</span>
+        Full Stack Developer
+        <span class="sep">·</span>
+        Cybersecurity
+      </p>
+
+      <div class="hero-badges reveal">
+        <span class="badge active">Python</span>
+        <span class="badge">Machine Learning</span>
+        <span class="badge">Power BI</span>
+        <span class="badge">SQL</span>
+        <span class="badge">C# .NET</span>
+        <span class="badge">CCST</span>
+      </div>
+
+      <div class="hero-ctas reveal">
+        <a href="#projects" class="btn-primary">View Projects <span>→</span></a>
+        <a href="#contact" class="btn-ghost">Get In Touch</a>
+      </div>
+
+      <div class="hero-counters reveal">
+        <div class="counter-item">
+          <span class="counter-num" data-target="89">0</span><span class="counter-suffix">%</span>
+          <span class="counter-label">F1 Score — Zindi</span>
         </div>
-
-        <div class="content">
-            <div class="sidebar">
-                <div class="card">
-                    <div class="card-header">About Me</div>
-                    <div class="card-content">
-                        <p style="margin-bottom: 15px;">Junior Data Scientist with hands-on experience in data analysis,
-                            visualization, and basic machine learning + Statistics.</p>
-                        <p style="margin-bottom: 15px;">Skilled in Python,R, SAS, SQL, Power BI, and Excel, and a Full
-                            Stack
-                            Developer experienced in building and integrating front-end and back-end solutions.</p>
-                        <p>Holds a CCST Cybersecurity certification, strengthening a secure approach to data handling.
-                            Passionate about turning data into actionable insights.</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">Key Skills</div>
-                    <div class="card-content">
-                        <div class="skill-category">
-                            <h4>Programming Languages</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Python</span>
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">HTML</span>
-                                <span class="skill-tag">CSS</span>
-                                <span class="skill-tag">SAS</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Data Science & Analytics</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Pandas</span>
-                                <span class="skill-tag">NumPy</span>
-                                <span class="skill-tag">Matplotlib</span>
-                                <span class="skill-tag">Data Cleaning</span>
-                                <span class="skill-tag">Data Analysis</span>
-                                <span class="skill-tag">Data Visualization</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Statistics</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Descriptive Statistics</span>
-                                <span class="skill-tag">Correlation Analysis</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Machine Learning</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Regression</span>
-                                <span class="skill-tag">Classification</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Databases</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">SQL</span>
-                                <span class="skill-tag">MongoDB</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Frameworks & Tools</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Bootstrap</span>
-                                <span class="skill-tag">Node.js</span>
-                                <span class="skill-tag">Flask</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Business Intelligence</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Power BI</span>
-                                <span class="skill-tag">Excel</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>API Development</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">RESTful APIs</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Dev Tools</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">GitHub</span>
-                                <span class="skill-tag">VS Code</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Cybersecurity</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Web Security Fundamentals</span>
-                                <span class="skill-tag">Secure Data Handling</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <h4>Office Software</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">MS Office 365</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="projects-section">
-                <div class="card">
-                    <div class="card-header">Work Experience</div>
-                    <div class="card-content">
-                        <div class="work-item">
-                            <h3>Junior data Scientist</h3>
-                            <p><strong>Shaper</strong> | October 2025 - Present</p>
-                            <ul>
-                                <li>Analyze data to find patterns and insights</li>
-                                <li>Clean, organize, and prepare data for analysis</li>
-                                <li>Create reports and dashboards using Excel and Power BI</li>
-                                <li>Use Python and SQL to work with data</li>
-                                <li>Support basic machine learning and predictive analysis</li>
-                            </ul>
-                        </div>
-
-                        <div class="work-item">
-                            <h3>Junior Cybersecurity Analyst</h3>
-                            <p><strong>Shaper</strong> | Oct 2024 – September 2025</p>
-                            <ul>
-                                <li>Identifying and analyzing potential security risks in web applications.</li>
-                                <li>Assisting in threat detection and vulnerability management.</li>
-                                <li>Conducting incident response and analyzing security breaches.</li>
-                                <li>Collaborating with teams to enhance internal and external system security.</li>
-                            </ul>
-                        </div>
-
-                        <div class="work-item">
-                            <h3>Junior Full-Stack Developer (Learnership)</h3>
-                            <p><strong>Shaper</strong> | Sep 2023 – Sep 2024</p>
-                            <ul>
-                                <li>Developed responsive, secure web applications using JavaScript, Python, HTML, and
-                                    CSS.</li>
-                                <li>Built and maintained RESTful APIs for seamless data interaction.</li>
-                                <li>Managed databases with MongoDB, ensuring data integrity.</li>
-                                <li>Utilized GitHub for version control and CI/CD pipelines for workflow optimization.
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">Featured Projects</div>
-                    <div class="card-content">
-                        <div class="projects-grid">
-                            <div class="project-card">
-                                <h3>System Performance Analysis</h3>
-                                <div class="project-icon">📈</div>
-                                <p class="project-description">Data Cleaning & Visualization</p>
-                                <a href="https://docs.google.com/presentation/d/1TjlIxMiV15uCjZdhECrTmz7psFYPWZgOXtD__423nN8/edit?slide=id.p#slide=id.p"
-                                    target="_blank"
-                                    style="display:block; margin-top:10px; color:#2c5f7c; text-decoration:none; font-weight:bold;">View
-                                    Project <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-
-                            <div class="project-card">
-                                <h3>SQL Business Insights</h3>
-                                <div class="project-icon">💾</div>
-                                <p class="project-description">SQL Queries & Reporting</p>
-                                <a href="https://github.com/sasekaninkuri/superstore" target="_blank"
-                                    style="display:block; margin-top:10px; color:#2c5f7c; text-decoration:none; font-weight:bold;">View
-                                    Project <i class="fab fa-github"></i></a>
-                            </div>
-
-                            <div class="project-card">
-                                <h3>IT Operations Dashboard</h3>
-                                <div class="project-icon">📊</div>
-                                <p class="project-description">Power BI Dashboard</p>
-                            </div>
-
-                            <div class="project-card">
-                                <h3>Predicting Downtime</h3>
-                                <div class="project-icon">🤖</div>
-                                <p class="project-description">Machine Learning Model</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card cyber-section">
-                    <div class="cyber-header">Cybersecurity & Anomaly Detection</div>
-                    <div class="cyber-content">
-                        <div class="cyber-visual">🔒</div>
-                        <div class="cyber-text">
-                            <h3>Anomaly Detection in Network Logs</h3>
-                            <p>Identifying Suspicious Activities</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="counter-divider"></div>
+        <div class="counter-item">
+          <span class="counter-num" data-target="3">0</span><span class="counter-suffix">+</span>
+          <span class="counter-label">Years Experience</span>
         </div>
-
-        <div class="footer">
-            <a href="https://github.com/sasekaninkuri" target="_blank" class="footer-link">
-                <i class="fab fa-github" style="font-size: 24px;"></i>
-                <span>GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/sasekani-maluleke-026736165/" target="_blank" class="footer-link">
-                <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-                <span>LinkedIn</span>
-            </a>
-            <a href="mailto:Sasekaninkuri560@gmail.com" class="footer-link">
-                <i class="fas fa-envelope" style="font-size: 24px;"></i>
-                <span>Email</span>
-            </a>
+        <div class="counter-divider"></div>
+        <div class="counter-item">
+          <span class="counter-num" data-target="4">0</span><span class="counter-suffix"></span>
+          <span class="counter-label">Tech Disciplines</span>
         </div>
+      </div>
     </div>
-</body>
 
+    <div class="hero-right reveal-right">
+      <div class="photo-frame">
+        <div class="photo-glow"></div>
+        <img src="assets/profile.png" alt="Sasekani Maluleke" class="photo-img" />
+        <div class="photo-overlay"></div>
+        <div class="photo-accent-line"></div>
+
+        <div class="photo-badge badge-top">
+          <div class="pb-num">89%</div>
+          <div class="pb-label">Zindi F1 Score</div>
+        </div>
+        <div class="photo-badge badge-mid">
+          <div class="pb-num gold">CCST</div>
+          <div class="pb-label">Certified</div>
+        </div>
+        <div class="photo-badge badge-bottom">
+          <div class="pb-num green">3+</div>
+          <div class="pb-label">Yrs Experience</div>
+        </div>
+
+        <!-- Corner decorations -->
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-br"></div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="section" id="about">
+    <div class="section-inner">
+      <div class="section-label scroll-reveal">01 — About</div>
+      <h2 class="section-title scroll-reveal">Built different.<br>Thinks wider.</h2>
+
+      <div class="about-grid">
+        <div class="about-text scroll-reveal">
+          <p>I started as a <strong>Full Stack Developer</strong>, learning how systems are built from the ground up — writing code that talks to databases, builds interfaces, and connects APIs. That engineering mindset shapes how I approach every dataset.</p>
+          <p>From there I moved into <strong>Cybersecurity</strong>, earning my CCST certification and developing a security-first approach to data handling, integrity, and governance. I don't just analyse data — I understand where it can go wrong.</p>
+          <p>Today I work as a <strong>Data Scientist</strong>, using Python, SQL, Power BI, and Excel to clean, analyse, and model data into decisions that actually drive outcomes. My background makes me see the full picture — not just the numbers.</p>
+          <p>Based in <strong>Kempton Park, Gauteng</strong>. Currently interning at Shaper, working on real data science problems across Southern Africa.</p>
+
+          <div class="about-links">
+            <a href="https://github.com/sasekaninkuri" target="_blank" class="about-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com" target="_blank" class="about-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+            <a href="https://sasekaninkuri.github.io/data-science-profile/" target="_blank" class="about-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              Portfolio
+            </a>
+          </div>
+        </div>
+
+        <div class="timeline scroll-reveal">
+          <div class="tl-item">
+            <div class="tl-marker">
+              <div class="tl-dot">01</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <h4>Full Stack Developer</h4>
+              <p class="tl-meta">Shaper Learnership · 2023–2024</p>
+              <p class="tl-desc">JavaScript, Python, Node.js, MongoDB, REST APIs</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-marker">
+              <div class="tl-dot">02</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <h4>Junior Software Developer</h4>
+              <p class="tl-meta">Speccon · Aug–Sep 2025</p>
+              <p class="tl-desc">C#, .NET, MudBlazor, Web Applications</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-marker">
+              <div class="tl-dot">03</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <h4>Cybersecurity Analyst</h4>
+              <p class="tl-meta">Shaper · 2024–2025</p>
+              <p class="tl-desc">CCST Certified · Threat Detection · Vulnerability Management</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-marker">
+              <div class="tl-dot active">04</div>
+            </div>
+            <div class="tl-content">
+              <h4>Data Scientist (Intern)</h4>
+              <p class="tl-meta">Shaper · Oct 2025–Present</p>
+              <p class="tl-desc">Python · ML · Power BI · SQL · Feature Engineering</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section class="section section-dark" id="skills">
+    <div class="section-inner">
+      <div class="section-label scroll-reveal">02 — Skills</div>
+      <h2 class="section-title scroll-reveal">What I bring<br>to the table.</h2>
+
+      <div class="skills-grid">
+        <div class="skill-card scroll-reveal" data-color="cyan">
+          <div class="skill-card-header">
+            <div class="skill-icon">⬡</div>
+            <h3>Data Science & ML</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="tag cyan">Python</span>
+            <span class="tag cyan">Pandas</span>
+            <span class="tag cyan">NumPy</span>
+            <span class="tag cyan">Scikit-learn</span>
+            <span class="tag cyan">SMOTE</span>
+            <span class="tag cyan">Regression</span>
+            <span class="tag cyan">Classification</span>
+            <span class="tag cyan">Ensemble Models</span>
+            <span class="tag cyan">Feature Engineering</span>
+          </div>
+        </div>
+
+        <div class="skill-card scroll-reveal" data-color="purple">
+          <div class="skill-card-header">
+            <div class="skill-icon">◈</div>
+            <h3>Data & BI</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="tag purple">SQL</span>
+            <span class="tag purple">Power BI</span>
+            <span class="tag purple">Excel</span>
+            <span class="tag purple">MongoDB</span>
+            <span class="tag purple">Matplotlib</span>
+            <span class="tag purple">Data Pipelines</span>
+            <span class="tag purple">Dashboards</span>
+            <span class="tag purple">Statistics</span>
+          </div>
+        </div>
+
+        <div class="skill-card scroll-reveal" data-color="green">
+          <div class="skill-card-header">
+            <div class="skill-icon">◎</div>
+            <h3>Development</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="tag green">JavaScript</span>
+            <span class="tag green">C# .NET</span>
+            <span class="tag green">MudBlazor</span>
+            <span class="tag green">Flask</span>
+            <span class="tag green">Node.js</span>
+            <span class="tag green">REST APIs</span>
+            <span class="tag green">GitHub</span>
+            <span class="tag green">HTML/CSS</span>
+          </div>
+        </div>
+
+        <div class="skill-card scroll-reveal" data-color="orange">
+          <div class="skill-card-header">
+            <div class="skill-icon">◻</div>
+            <h3>Cybersecurity</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="tag orange">CCST Certified</span>
+            <span class="tag orange">Web Security</span>
+            <span class="tag orange">Threat Detection</span>
+            <span class="tag orange">Vulnerability Mgmt</span>
+            <span class="tag orange">Secure Data Handling</span>
+            <span class="tag orange">Incident Response</span>
+          </div>
+        </div>
+
+        <div class="skill-card scroll-reveal" data-color="cyan">
+          <div class="skill-card-header">
+            <div class="skill-icon">◬</div>
+            <h3>Statistics</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="tag cyan">Descriptive Stats</span>
+            <span class="tag cyan">Correlation Analysis</span>
+            <span class="tag cyan">Class Imbalance</span>
+            <span class="tag cyan">Cross-Validation</span>
+            <span class="tag cyan">Hypothesis Testing</span>
+          </div>
+        </div>
+
+        <div class="skill-card scroll-reveal" data-color="purple">
+          <div class="skill-card-header">
+            <div class="skill-icon">⬖</div>
+            <h3>Soft Skills</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="tag purple">Communication</span>
+            <span class="tag purple">Team Collaboration</span>
+            <span class="tag purple">Problem Solving</span>
+            <span class="tag purple">Time Management</span>
+            <span class="tag purple">Attention to Detail</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section class="section" id="projects">
+    <div class="section-inner">
+      <div class="section-label scroll-reveal">03 — Projects</div>
+      <h2 class="section-title scroll-reveal">Work that<br>speaks for itself.</h2>
+
+      <!-- Featured Project -->
+      <div class="project-featured scroll-reveal">
+        <div class="project-featured-inner">
+          <div class="project-content">
+            <div class="project-meta">
+              <span class="project-tag">Featured Project</span>
+              <span class="project-year">2026</span>
+            </div>
+            <h3 class="project-title">SME Financial Health<br>Prediction Challenge</h3>
+            <p class="project-org">Zindi · data.org · FinMark Trust</p>
+            <p class="project-desc">Built a multiclass ML model predicting the financial health of small businesses across 4 Southern African nations — classifying them as Low, Medium, or High risk. Addressed real-world challenges including class imbalance, missing data, and cross-country feature variance using an end-to-end 6-stage pipeline.</p>
+
+            <div class="project-metrics">
+              <div class="metric">
+                <div class="metric-num">89%</div>
+                <div class="metric-lbl">Macro F1</div>
+              </div>
+              <div class="metric">
+                <div class="metric-num">30+</div>
+                <div class="metric-lbl">Features</div>
+              </div>
+              <div class="metric">
+                <div class="metric-num">4</div>
+                <div class="metric-lbl">Countries</div>
+              </div>
+              <div class="metric">
+                <div class="metric-num">3</div>
+                <div class="metric-lbl">Models</div>
+              </div>
+            </div>
+
+            <div class="project-stack">
+              <span class="stack-pill">Python</span>
+              <span class="stack-pill">Scikit-learn</span>
+              <span class="stack-pill">SMOTE</span>
+              <span class="stack-pill">Random Forest</span>
+              <span class="stack-pill">Gradient Boosting</span>
+              <span class="stack-pill">Extra Trees</span>
+              <span class="stack-pill">Pandas</span>
+              <span class="stack-pill">NumPy</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://sasekaninkuri.github.io/data-science-profile/" target="_blank" class="btn-primary sm">View Portfolio →</a>
+              <a href="https://github.com/sasekaninkuri" target="_blank" class="btn-ghost sm">GitHub →</a>
+            </div>
+          </div>
+
+          <div class="project-visual">
+            <div class="pv-badge">
+              <span class="pv-num">89%</span>
+              <span class="pv-lbl">F1 Score</span>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Per-Class F1 Score</div>
+              <div class="chart-bars">
+                <div class="chart-bar-group">
+                  <div class="chart-bar-fill" style="--h:91%; --c:#e74c3c;"></div>
+                  <div class="chart-bar-val">0.91</div>
+                  <div class="chart-bar-lbl">Low</div>
+                </div>
+                <div class="chart-bar-group">
+                  <div class="chart-bar-fill" style="--h:87%; --c:#f0c040;"></div>
+                  <div class="chart-bar-val">0.87</div>
+                  <div class="chart-bar-lbl">Med</div>
+                </div>
+                <div class="chart-bar-group">
+                  <div class="chart-bar-fill" style="--h:88%; --c:#00e5a0;"></div>
+                  <div class="chart-bar-val">0.88</div>
+                  <div class="chart-bar-lbl">High</div>
+                </div>
+              </div>
+              <div class="chart-models">
+                <div class="model-row"><span class="model-name">Random Forest</span><div class="model-bar"><div class="model-fill" style="--w:86.21%;"></div></div><span class="model-score">0.8621</span></div>
+                <div class="model-row"><span class="model-name">Grad. Boosting</span><div class="model-bar"><div class="model-fill" style="--w:87.54%;"></div></div><span class="model-score">0.8754</span></div>
+                <div class="model-row"><span class="model-name">Extra Trees</span><div class="model-bar"><div class="model-fill" style="--w:85.93%;"></div></div><span class="model-score">0.8593</span></div>
+                <div class="model-row"><span class="model-name">Ensemble</span><div class="model-bar"><div class="model-fill gold" style="--w:88.11%;"></div></div><span class="model-score gold">0.8811</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section class="section section-dark" id="experience">
+    <div class="section-inner">
+      <div class="section-label scroll-reveal">04 — Experience</div>
+      <h2 class="section-title scroll-reveal">Every role<br>built this one.</h2>
+
+      <div class="exp-grid">
+        <div class="exp-card scroll-reveal">
+          <div class="exp-header">
+            <div class="exp-dot cyan"></div>
+            <div>
+              <h3>Junior Data Scientist (Intern)</h3>
+              <p class="exp-company">Shaper <span class="exp-date">Oct 2025–Present</span></p>
+            </div>
+          </div>
+          <ul class="exp-list">
+            <li>Analyse datasets to identify patterns and actionable business insights</li>
+            <li>Build and maintain Power BI dashboards and Excel reports</li>
+            <li>Support ML model development including regression and classification</li>
+            <li>Develop and maintain data pipelines for consistent data flow</li>
+            <li>Write Python and SQL scripts for data manipulation and analysis</li>
+          </ul>
+          <div class="exp-tags">
+            <span>Python</span><span>SQL</span><span>Power BI</span><span>ML</span>
+          </div>
+        </div>
+
+        <div class="exp-card scroll-reveal">
+          <div class="exp-header">
+            <div class="exp-dot purple"></div>
+            <div>
+              <h3>Junior Software Developer</h3>
+              <p class="exp-company">Speccon <span class="exp-date">Aug–Sep 2025</span></p>
+            </div>
+          </div>
+          <ul class="exp-list">
+            <li>Developed web applications using C# and the .NET framework</li>
+            <li>Built interactive UIs using MudBlazor component library</li>
+            <li>Contributed to component-based UI design and development</li>
+          </ul>
+          <div class="exp-tags">
+            <span>C#</span><span>.NET</span><span>MudBlazor</span>
+          </div>
+        </div>
+
+        <div class="exp-card scroll-reveal">
+          <div class="exp-header">
+            <div class="exp-dot orange"></div>
+            <div>
+              <h3>Junior Cybersecurity Analyst</h3>
+              <p class="exp-company">Shaper <span class="exp-date">Oct 2024–Sep 2025</span></p>
+            </div>
+          </div>
+          <ul class="exp-list">
+            <li>Identified and analysed security risks in web applications</li>
+            <li>Assisted in threat detection and vulnerability management</li>
+            <li>Conducted incident response and security breach analysis</li>
+            <li>Collaborated on enhancing system security across teams</li>
+          </ul>
+          <div class="exp-tags">
+            <span>CCST</span><span>Threat Detection</span><span>Security</span>
+          </div>
+        </div>
+
+        <div class="exp-card scroll-reveal">
+          <div class="exp-header">
+            <div class="exp-dot green"></div>
+            <div>
+              <h3>Junior Full Stack Developer</h3>
+              <p class="exp-company">Shaper Learnership <span class="exp-date">Sep 2023–Sep 2024</span></p>
+            </div>
+          </div>
+          <ul class="exp-list">
+            <li>Built responsive web apps using JavaScript, Python, HTML, and CSS</li>
+            <li>Developed and maintained RESTful APIs for data interaction</li>
+            <li>Managed MongoDB databases ensuring data integrity</li>
+            <li>Used GitHub for version control and CI/CD pipelines</li>
+          </ul>
+          <div class="exp-tags">
+            <span>JavaScript</span><span>Python</span><span>MongoDB</span><span>APIs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="section" id="contact">
+    <div class="section-inner">
+      <div class="section-label scroll-reveal">05 — Contact</div>
+
+      <div class="contact-grid">
+        <div class="contact-left scroll-reveal">
+          <h2 class="contact-heading">
+            Let's<br>
+            <span class="outline">work</span><br>
+            together.
+          </h2>
+          <p class="contact-sub">Open to data science, analytics, and full-stack roles. Based in Kempton Park, Gauteng — available immediately.</p>
+
+          <div class="contact-items">
+            <a href="mailto:Sasekaninkuri560@gmail.com" class="contact-item">
+              <div class="ci-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="ci-text">
+                <span class="ci-label">Email</span>
+                <span class="ci-value">Sasekaninkuri560@gmail.com</span>
+              </div>
+              <span class="ci-arrow">→</span>
+            </a>
+            <a href="tel:0837719473" class="contact-item">
+              <div class="ci-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+              </div>
+              <div class="ci-text">
+                <span class="ci-label">Phone</span>
+                <span class="ci-value">083 771 9473</span>
+              </div>
+              <span class="ci-arrow">→</span>
+            </a>
+            <a href="https://github.com/sasekaninkuri" target="_blank" class="contact-item">
+              <div class="ci-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </div>
+              <div class="ci-text">
+                <span class="ci-label">GitHub</span>
+                <span class="ci-value">github.com/sasekaninkuri</span>
+              </div>
+              <span class="ci-arrow">→</span>
+            </a>
+            <a href="https://sasekaninkuri.github.io/data-science-profile/" target="_blank" class="contact-item">
+              <div class="ci-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              </div>
+              <div class="ci-text">
+                <span class="ci-label">Portfolio</span>
+                <span class="ci-value">sasekaninkuri.github.io</span>
+              </div>
+              <span class="ci-arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-right scroll-reveal">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="John Smith" required />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="john@company.com" required />
+            </div>
+            <div class="form-group">
+              <label>Subject</label>
+              <input type="text" placeholder="Job opportunity / Collaboration" required />
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea rows="5" placeholder="Tell me about the opportunity..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary full">Send Message →</button>
+            <div class="form-success" id="formSuccess">✓ Message sent! I'll get back to you soon.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">SM<span>.</span></div>
+      <p class="footer-copy">© 2026 Sasekani Maluleke — Data Scientist</p>
+      <p class="footer-loc">Kempton Park · Gauteng · South Africa</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
 </html>

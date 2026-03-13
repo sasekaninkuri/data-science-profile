@@ -1,59 +1,68 @@
-# Portfolio
+# Sasekani Maluleke — Portfolio Website
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+A fully functional, beautiful portfolio website built with HTML, CSS, and vanilla JavaScript.
 
-## Development server
+## 📁 Project Structure
 
-To start a local development server, run:
-
-```bash
-ng serve
+```
+sasekani-portfolio/
+├── index.html          ← Main HTML file
+├── css/
+│   └── style.css       ← All styles
+├── js/
+│   └── main.js         ← All JavaScript (interactions, animations)
+├── assets/
+│   └── profile.png     ← Your profile photo
+└── README.md           ← This file
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 How to Run in VS Code
 
-## Code scaffolding
+### Option 1 — Live Server (Recommended)
+1. Open VS Code
+2. Install the **"Live Server"** extension (by Ritwick Dey)
+   - Go to Extensions (Ctrl+Shift+X)
+   - Search "Live Server"
+   - Click Install
+3. Open the `sasekani-portfolio` folder in VS Code
+4. Right-click `index.html` → **"Open with Live Server"**
+5. Your portfolio opens at `http://127.0.0.1:5500`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Option 2 — Just Open the File
+1. Navigate to the folder in your file explorer
+2. Double-click `index.html`
+3. It opens directly in your browser ✅
 
-```bash
-ng generate component component-name
-```
+## 🌐 How to Deploy to GitHub Pages
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Go to `github.com/sasekaninkuri/data-science-profile`
+2. Upload ALL these files to the repository root
+3. Make sure `index.html` is in the root folder
+4. Go to **Settings → Pages → Deploy from branch → main → Save**
+5. Your live URL: `https://sasekaninkuri.github.io/data-science-profile/`
 
-```bash
-ng generate --help
-```
+## ✨ Features
 
-## Building
+- **Custom cursor** with smooth ring follower
+- **Particle canvas** background with connecting lines
+- **Animated counters** (89%, 3+, 4)
+- **Typing effect** on hero title cycling through roles
+- **Scroll reveal** animations on all sections
+- **3D tilt effect** on profile photo
+- **Scroll progress bar** at top of page
+- **Back to top** button
+- **Mobile responsive** with hamburger menu
+- **Contact form** with success message
+- **Chart animations** (bar charts for F1 scores)
+- **Active nav link** tracking on scroll
 
-To build the project run:
+## 🎨 Customisation
 
-```bash
-ng build
-```
+- **Change colours**: Edit CSS variables at top of `style.css`
+- **Update info**: Edit text directly in `index.html`
+- **Add projects**: Copy the `.project-featured` block in `index.html`
+- **Change photo**: Replace `assets/profile.png` with your new photo (keep the same filename)
+- **Add CV download**: Place your CV PDF as `assets/Sasekani_CV.pdf`
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📱 Browser Support
+Chrome, Firefox, Safari, Edge — all modern browsers.
