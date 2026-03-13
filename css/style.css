@@ -703,7 +703,12 @@ footer {
   .nav-hamburger { display: flex; }
   .nav-cta { display: none; }
   .hero { padding: 90px 24px 60px; }
-  .photo-frame { width: 280px; height: 350px; }
+  .photo-frame { width: 260px; height: 320px; }
+  .badge-top { right: -10px; padding: 8px 12px; }
+  .badge-mid { right: -10px; padding: 8px 12px; }
+  .badge-bottom { left: -10px; padding: 8px 12px; }
+  .pb-num { font-size: 16px; }
+  .pb-label { font-size: 8px; }
   .section { padding: 80px 24px; }
   footer { padding: 24px; }
   .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
