@@ -708,6 +708,17 @@ footer {
 }
 
 /* ── PROJECTS GRID ── */
+.projects-category-title {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 30px;
+  padding-left: 10px;
+  border-left: 2px solid var(--accent);
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
